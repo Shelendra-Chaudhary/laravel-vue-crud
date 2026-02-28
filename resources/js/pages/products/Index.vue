@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, router, usePage } from '@inertiajs/vue3';
 import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import Button from '@/components/ui/button/Button.vue';
@@ -17,7 +17,6 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-
 
 interface Product {
     id: number;
@@ -38,6 +37,12 @@ const breadcrumbs: BreadcrumbItem[] = [
 ];
 
 const page = usePage();
+
+const handleDelete = (id: number) => {
+    if (confirm('Are you sure you want to delete this product?')) {
+        router.delete(products.destroy.url(id))
+    }
+};
 
 </script>
 
@@ -77,12 +82,19 @@ const page = usePage();
                             <TableCell>₹{{ product.price }}</TableCell>
                             <TableCell>{{ product.description }}</TableCell>
                             <TableCell class="text-center">
-                                <div class="">
-                                    <Link :href=products.edit.url(product.id) class="text-blue-500 hover:text-blue-700"><SquarePen /></Link>
-                                <Link :href=products.destroy.url(product.id) method="delete" class="text-red-500 hover:text-red-700 ml-4"><Trash2 /></Link>
+                                <div class="flex items-center justify-center gap-2">
+                                    <!-- Edit Button -->
+                                    <Link :href="products.edit.url(product.id)"
+                                        class="inline-flex items-center justify-center h-9 w-9 rounded-md text-blue-500 hover:bg-blue-50 hover:text-blue-600 transition">
+                                        <SquarePen class="w-4 h-4" />
+                                    </Link>
+
+                                    <!-- Delete Button -->
+                                    <Button @click="handleDelete(product.id)" variant="ghost" size="icon"
+                                        class="text-red-500 hover:bg-red-50 hover:text-red-600 transition">
+                                        <Trash2 class="w-4 h-4" />
+                                    </Button>
                                 </div>
-                                <!-- <Link :href=products.edit.url(product.id) class="text-blue-500 hover:text-blue-700"><SquarePen /></Link>
-                                <Link :href=products.destroy.url(product.id) method="delete" class="text-red-500 hover:text-red-700 ml-4"><Trash2 /></Link> -->
                             </TableCell>
                         </TableRow>
                     </TableBody>

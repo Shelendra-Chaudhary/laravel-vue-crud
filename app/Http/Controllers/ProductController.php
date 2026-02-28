@@ -41,4 +41,24 @@ class ProductController extends Controller
             'product' => $product,
         ]);
     }
+
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'required|numeric|min:0',
+        ]);
+
+        $product->update($request->only('name', 'description', 'price'));
+
+        return redirect()->route('products.index')->with('message', 'Product updated successfully.');
+    }
+
+    public function destroy(Product $product)
+    {
+        $product->delete();
+
+        return redirect()->route('products.index')->with('message', 'Product deleted successfully.');
+    }
 }
