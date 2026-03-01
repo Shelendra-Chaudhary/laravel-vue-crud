@@ -17,6 +17,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
+import Pagination from '@/components/Pagination.vue';
 
 interface Product {
     id: number;
@@ -25,8 +26,17 @@ interface Product {
     description: string;
 }
 
+interface Paginated<T> {
+    data: T[];
+    links: {
+        url: string | null;
+        label: string;
+        active: boolean;
+    }[];
+}
+
 const props = defineProps<{
-    allProducts: Product[];
+    allProducts: Paginated<Product>;
 }>();
 
 const breadcrumbs: BreadcrumbItem[] = [
@@ -60,10 +70,16 @@ const handleDelete = (id: number) => {
                 </Alert>
             </div>
 
+            <div class="flex items-center justify-between mb-4">
+                <!-- Left side: create button -->
+                <Button as-child>
+                    <Link :href="products.create.url()">Create Product</Link>
+                </Button>
+                <!-- Right side: pagination -->
+                <Pagination :links="props.allProducts.links" />
+            </div>
 
-            <Link :href=products.create.url()><Button class="mb-4">Create Product</Button></Link>
-
-            <div>
+            <div class="overflow-x-auto">
                 <Table>
                     <TableCaption>A list of your recent products.</TableCaption>
                     <TableHeader>
@@ -76,7 +92,7 @@ const handleDelete = (id: number) => {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        <TableRow v-for="product in props.allProducts" :key="product.id">
+                        <TableRow v-for="product in props.allProducts.data" :key="product.id">
                             <TableCell>{{ product.id }}</TableCell>
                             <TableCell>{{ product.name }}</TableCell>
                             <TableCell>₹{{ product.price }}</TableCell>
@@ -101,7 +117,6 @@ const handleDelete = (id: number) => {
                         </TableRow>
                     </TableBody>
                 </Table>
-
             </div>
         </div>
     </AppLayout>
