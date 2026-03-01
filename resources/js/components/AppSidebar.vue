@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import { BookOpen, Folder, LayoutGrid, PackageSearch } from 'lucide-vue-next';
+import { Github, Linkedin, Link2, LayoutGrid, PackageSearch } from 'lucide-vue-next';
 import NavFooter from '@/components/NavFooter.vue';
 import NavMain from '@/components/NavMain.vue';
 import NavUser from '@/components/NavUser.vue';
@@ -33,15 +33,20 @@ const mainNavItems: NavItem[] = [
 
 const footerNavItems: NavItem[] = [
     {
-        title: 'Github Repo',
-        href: 'https://github.com/laravel/vue-starter-kit',
-        icon: Folder,
+        title: 'Linkedin',
+        href: 'https://www.linkedin.com/in/shelendra-chaudhary-015793119/',
+        icon: Linkedin,
     },
     {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#vue',
-        icon: BookOpen,
+        title: 'Github',
+        href: 'https://github.com/shelendra-chaudhary',
+        icon: Github,
     },
+    {
+        title: 'Website',
+        href: 'https://91techsquare.com',
+        icon: Link2,
+    }
 ];
 </script>
 

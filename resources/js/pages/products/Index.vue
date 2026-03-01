@@ -84,14 +84,16 @@ const handleDelete = (id: number) => {
                             <TableCell class="text-center">
                                 <div class="flex items-center justify-center gap-2">
                                     <!-- Edit Button -->
-                                    <Link :href="products.edit.url(product.id)"
-                                        class="inline-flex items-center justify-center h-9 w-9 rounded-md text-blue-500 hover:bg-blue-50 hover:text-blue-600 transition">
-                                        <SquarePen class="w-4 h-4" />
-                                    </Link>
+                                    <Button as-child variant="ghost" size="icon"
+                                        class="text-blue-500 hover:text-blue-600">
+                                        <Link :href="products.edit.url(product.id)">
+                                            <SquarePen class="w-4 h-4" />
+                                        </Link>
+                                    </Button>
 
                                     <!-- Delete Button -->
                                     <Button @click="handleDelete(product.id)" variant="ghost" size="icon"
-                                        class="text-red-500 hover:bg-red-50 hover:text-red-600 transition">
+                                        class="text-destructive">
                                         <Trash2 class="w-4 h-4" />
                                     </Button>
                                 </div>

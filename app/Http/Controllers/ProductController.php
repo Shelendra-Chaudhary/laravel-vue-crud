@@ -3,13 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Http\RedirectResponse;
 use Inertia\Inertia;
 
 use Illuminate\Http\Request;
+use Inertia\Response;
 
 class ProductController extends Controller
 {
-    public function index()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): Response
     {
         $allProducts = Product::latest()->get();
         return Inertia::render('products/Index', [
@@ -17,12 +22,18 @@ class ProductController extends Controller
         ]);
     }
 
-    public function create()
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): Response
     {
         return Inertia::render('products/Create');
     }
 
-    public function store(Request $request)
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -35,14 +46,20 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('message', 'Product created successfully.');
     }
 
-    public function edit(Product $product)
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Product $product): Response
     {
         return Inertia::render('products/Edit', [
             'product' => $product,
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Product $product): RedirectResponse
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -55,7 +72,10 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('message', 'Product updated successfully.');
     }
 
-    public function destroy(Product $product)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Product $product): RedirectResponse
     {
         $product->delete();
 
