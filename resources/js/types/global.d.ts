@@ -31,3 +31,12 @@ declare module 'vue' {
         $headManager: ReturnType<typeof createHeadManager>;
     }
 }
+
+declare module '@inertiajs/core' {
+  interface PageProps extends InertiaPageProps {
+    flash?: {
+      success?: string
+      error?: string
+    }
+  }
+}
