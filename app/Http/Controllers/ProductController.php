@@ -17,7 +17,6 @@ class ProductController extends Controller
     public function index(): Response
     {
         $allProducts = Product::latest()->paginate(5);
-        // $allProducts = Product::latest()->get();
         return Inertia::render('products/Index', [
             'allProducts' => $allProducts,
         ]);
@@ -44,7 +43,7 @@ class ProductController extends Controller
 
         Product::create($request->only('name', 'description', 'price'));
 
-        return redirect()->route('products.index')->with('message', 'Product created successfully.');
+        return redirect()->route('products.index')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -70,7 +69,7 @@ class ProductController extends Controller
 
         $product->update($request->only('name', 'description', 'price'));
 
-        return redirect()->route('products.index')->with('message', 'Product updated successfully.');
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
     /**
@@ -80,6 +79,6 @@ class ProductController extends Controller
     {
         $product->delete();
 
-        return redirect()->route('products.index')->with('message', 'Product deleted successfully.');
+        return redirect()->route('products.index')->with('success', 'Product deleted successfully.');
     }
 }

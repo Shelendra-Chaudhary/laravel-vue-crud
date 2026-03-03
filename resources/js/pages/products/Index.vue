@@ -18,21 +18,13 @@ import {
     TableRow,
 } from '@/components/ui/table'
 import Pagination from '@/components/Pagination.vue';
+import { Paginated } from '@/types/pagination';
 
 interface Product {
     id: number;
     name: string;
     price: number;
     description: string;
-}
-
-interface Paginated<T> {
-    data: T[];
-    links: {
-        url: string | null;
-        label: string;
-        active: boolean;
-    }[];
 }
 
 const props = defineProps<{
@@ -62,11 +54,11 @@ const handleDelete = (id: number) => {
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
-            <div v-if="page.props.flash?.message" class="mb-4">
+            <div v-if="page.props.flash?.success" class="mb-4">
                 <Alert class="bg-blue-100 text-blue-800 mb-4">
                     <Rocket />
                     <AlertTitle>Notification</AlertTitle>
-                    <AlertDescription>{{ page.props.flash.message }}</AlertDescription>
+                    <AlertDescription>{{ page.props.flash.success }}</AlertDescription>
                 </Alert>
             </div>
 
