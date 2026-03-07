@@ -29,6 +29,11 @@ const mainNavItems: NavItem[] = [
         href: products.index(),
         icon: PackageSearch,
     },
+    {
+        title: 'XYZ',
+        href: '#',
+        icon: Link2,
+    }
 ];
 
 const footerNavItems: NavItem[] = [
